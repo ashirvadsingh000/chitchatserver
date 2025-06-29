@@ -12,7 +12,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "https://chat-client-sandy.vercel.app", // For dev, limit this in prod
+    origin: "*", // For dev, limit this in prod
     methods: ["GET", "POST"],
   },
 });
