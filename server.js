@@ -14,20 +14,28 @@ const io = new Server(server, {
   cors: {
     origin: "https://roomchatclient.netlify.app", // For dev, limit this in prod
     methods: ["GET", "POST"],
+      credentials: true ,
   },
 });
 
 app.use(cors());
 app.use(express.json());
 
+
 connectDB();
 
 app.use("/api/auth", authRoutes);
+const conversionRoutes = require("./routes/conversionRoutes");
+app.use("/api/conversion", conversionRoutes);
 
 const messageRoutes = require("./routes/messageRoutes");
 app.use("/api/messages", messageRoutes);
 
+const feedbackRoutes = require("./routes/feedbackRoutes");
+app.use("/api/feedback", feedbackRoutes);
+
 chatSocket(io);
+
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
